@@ -1,4 +1,15 @@
-* Configuración de publciación
+* LEEME
+** Para que sirve
+Permite exportar un sitio web desde un directorio base indicado. Convirtiendo
+los archivos con extensión *.org a html* y copiando este html, las imágenes y
+los archivos css a un directorio de publicación.
+
+Viene un sitio con un contenido básico dentro de la carpeta =./org= y también se
+puede publicar sitios desde la carpeta =./private= activando el flag
+use-private. Esta carpeta no tiene contenido y hay que respetar la estructura de
+la carpeta =./org=.
+
+** Configuración de publicación
 #+begin_src emacs-lisp
 (setq publish-dir "~/develop/web/sitio/public_html")
 (setq use-private nil)
@@ -54,3 +65,9 @@
 | images      | :base-directory | ~/develop/web/sitio/private/images | :base-extension | jpg\ | gif\                  | png\                                | svg                  | :publishing-directory    | ~/develop/web/sitio/public_html/images | :publishing-function | org-publish-attachment |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
 | css         | :base-directory | ~/develop/web/sitio/private/css    | :base-extension | css  | :publishing-directory | ~/develop/web/sitio/public_html/css | :publishing-function | org-publish-attachment   |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
 | website     | :components     | (org-to-html images css)           |                 |      |                       |                                     |                      |                          |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
+
+*** Como publicar el sitio web
+1. Configurar el uso del directorio privado o no
+2. Cargar la configuración de publicación
+3. Usar el publish dispatcher de org mode =M-m m e e P x=
+ 
