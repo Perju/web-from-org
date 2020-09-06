@@ -5,7 +5,7 @@ body {
     color: #ccc;
 }
 
-#content > div {
+#content > div, #table-of-contents {
     display: flow-root;
     background-color: #333;
     border-radius: 8px;
@@ -14,16 +14,19 @@ body {
     margin-right: 12px;
 }
 
-figure {
+#table-of-contents, picture, .sitemap {
+    width: 23%;
     float: left;
+}
+.sitemap {
+    clear: left;
+}
+picture {
+    display: inline-block;
 }
 
 a, a:visited {
     color: darkgoldenrod
-}
-
-.sitemap {
-    float: left;
 }
 
 .relleno {

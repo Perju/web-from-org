@@ -1,4 +1,4 @@
-#+TITLE: Home
+#+TITLE: 
 
 - [[file:index.org][Pagina principal]]
 - pages

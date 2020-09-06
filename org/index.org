@@ -3,6 +3,7 @@
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: sitemap
 :CUSTOM_ID: sitemap
+:UNNUMBERED: notoc
 :END:
 #+INCLUDE: sitemap.org
 

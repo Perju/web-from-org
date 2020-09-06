@@ -10,20 +10,21 @@
          :publishing-directory ,(concat publish-dir)
          :publishing-function org-html-publish-to-html
          
+         :language "es"
          :exclude "private.org"
          :recursive t
          :with-title t
          :with-date t
-         :with-toc nil
+         :with-toc t 
 
          :html-doctype "html5"
          :html-html5-fancy t
-         ;; :html-
+         :section-numbers nil
          
          :html-head "<link rel=\"stylesheet\" href=\"../css/style.css\" type=\"text/css\"/>"
 
          :auto-sitemap t
-         :sitemap-title "Home"
+         :sitemap-title "" 
          :sitemap-sort-files anti-chronologically
          :sitemap-file-entry-format "%d - %t"
          :sitemap-function org-publish-sitemap-default)
@@ -43,7 +44,7 @@
 #+end_src
 
 #+RESULTS:
-| org-to-html | :base-directory | ~/develop/web/sitio/org/       | :base-extension | org  | :publishing-directory | ~/develop/web/sitio/public_html     | :publishing-function | org-html-publish-to-html | :exclude                               | private.org          | :recursive             | t | :with-title | t | :with-date | t | :with-toc | nil | :html-doctype | html5 | :html-html5-fancy | t | :html-head | <link rel="stylesheet" href="../css/style.css" type="text/css"/> | :auto-sitemap | t | :sitemap-title | Home | :sitemap-sort-files | anti-chronologically | :sitemap-file-entry-format | %d - %t | :sitemap-function | org-publish-sitemap-default |
-| images      | :base-directory | ~/develop/web/sitio/org/images | :base-extension | jpg\ | gif\                  | png\                                | svg                  | :publishing-directory    | ~/develop/web/sitio/public_html/images | :publishing-function | org-publish-attachment |   |             |   |            |   |           |     |               |       |                   |   |            |                                                                  |               |   |                |      |                     |                      |                            |         |                   |                             |
-| css         | :base-directory | ~/develop/web/sitio/org/css    | :base-extension | css  | :publishing-directory | ~/develop/web/sitio/public_html/css | :publishing-function | org-publish-attachment   |                                        |                      |                        |   |             |   |            |   |           |     |               |       |                   |   |            |                                                                  |               |   |                |      |                     |                      |                            |         |                   |                             |
-| website     | :components     | (org-to-html images css)       |                 |      |                       |                                     |                      |                          |                                        |                      |                        |   |             |   |            |   |           |     |               |       |                   |   |            |                                                                  |               |   |                |      |                     |                      |                            |         |                   |                             |
+| org-to-html | :base-directory | ~/develop/web/sitio/org/       | :base-extension | org  | :publishing-directory | ~/develop/web/sitio/public_html     | :publishing-function | org-html-publish-to-html | :language                              | es                   | :exclude               | private.org | :recursive | t | :with-title | t | :with-date | t | :with-toc | t | :html-doctype | html5 | :html-html5-fancy | t | :section-numbers | nil | :html-head | <link rel="stylesheet" href="../css/style.css" type="text/css"/> | :auto-sitemap | t | :sitemap-title |   | :sitemap-sort-files | anti-chronologically | :sitemap-file-entry-format | %d - %t | :sitemap-function | org-publish-sitemap-default |
+| images      | :base-directory | ~/develop/web/sitio/org/images | :base-extension | jpg\ | gif\                  | png\                                | svg                  | :publishing-directory    | ~/develop/web/sitio/public_html/images | :publishing-function | org-publish-attachment |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
+| css         | :base-directory | ~/develop/web/sitio/org/css    | :base-extension | css  | :publishing-directory | ~/develop/web/sitio/public_html/css | :publishing-function | org-publish-attachment   |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
+| website     | :components     | (org-to-html images css)       |                 |      |                       |                                     |                      |                          |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
