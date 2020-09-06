@@ -1,0 +1,24 @@
+#+TITLE: Acerca de
+* Acerca de
+Este sitio esta creado con org-mode y spacemacs, como sitio web para organizar
+información y datos de todo tipo. El objetivo es aprender a crear
+configuraciones para publicar diferentes tidpos de documentos, pagina web en
+html, pdf, presentación con reveal.js, etc...
+
+#+CAPTION: Spacemacs logo
+#+NAME: fig:Imagen-01
+#+ATTR_HTML: :style width: 150px;
+#+ATTR_ORG: :width 150
+[[../images/spacemacs-logo.svg]]
+
+#+CAPTION: Org-mode logo
+#+NAME: fig:Imagen-02
+#+ATTR_HTML: :style width: 150px;
+#+ATTR_ORG: :width 150
+[[../images/org-mode-unicorn-logo.png]]
+
+@@html:<br style="clear:both;" />@@
+
+* Sitemap
+#+INCLUDE: ../sitemap.org
+

@@ -1,0 +1,14 @@
+* Emacs
+Esta página contiene información de configuraciones de emacs.
+
+* Caracteres unicode y ubuntu 20.04
+Para que se vean los caracteres especiales en ubuntu hay que instalar el paquete
+=ttf-ancient-fonts= que también nos intalara =fonts-ancient-scripts
+fonts-symbola=, esto funciona junto a alguna capa de spacemacs
+
+* Ejemplos de como añadir enlaces a otros ficheros org
+-   Enlace a una cabecera de otro documento [[file:acerca-de.org::*Sitemap][Sitemap]]
+   =[[file:acerca-de.org::*Sitemap][Sitemap]]=
+- =[[file:foo.org::#custom-id]]=
+- =[[file:foo.org::target]]=
+

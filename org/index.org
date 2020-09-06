@@ -1,0 +1,10 @@
+#+TITLE: Pagina principal
+* Pagina principal
+Esta es la pagina principal de bienvenida o lo que sea.
+* Secciones
+** acerca-de
+  - [[file:pages/acerca-de.org][acerca-de]]
+** emacs
+  - [[file:pages/emacs.org][emacs]]
+* Sitemap
+#+INCLUDE: sitemap.org

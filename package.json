@@ -1,0 +1,16 @@
+{
+  "name": "sitio",
+  "version": "1.0.0",
+  "description": "sitio-web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "develop": "nodemon index.js"
+  },
+  "author": "JuanP Perez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
