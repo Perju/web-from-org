@@ -1,4 +1,11 @@
 #+TITLE: Acerca de
+* Sitemap
+:PROPERTIES:
+:HTML_CONTAINER_CLASS: sitemap
+:CUSTOM_ID: sitemap
+:END:
+#+INCLUDE: ../sitemap.org
+
 * Acerca de
 Este sitio esta creado con org-mode y spacemacs, como sitio web para organizar
 información y datos de todo tipo. El objetivo es aprender a crear
@@ -18,7 +25,4 @@ html, pdf, presentación con reveal.js, etc...
 [[../images/org-mode-unicorn-logo.png]]
 
 @@html:<br style="clear:both;" />@@
-
-* Sitemap
-#+INCLUDE: ../sitemap.org
 
