@@ -1,0 +1,35 @@
+body {
+    margin: auto;
+    max-width: 800px;
+    background-color: #111;
+    color: #ccc;
+}
+
+#content > div, #table-of-contents {
+    display: flow-root;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-right: 12px;
+}
+
+#table-of-contents, figure, .sitemap {
+    width: 23%;
+    float: left;
+}
+.sitemap {
+    clear: left;
+}
+picture {
+    display: inline-block;
+}
+
+a, a:visited {
+    color: darkgoldenrod
+}
+
+.relleno {
+    color: white;
+}
+
