@@ -4,10 +4,13 @@ Permite exportar un sitio web desde un directorio base indicado. Convirtiendo
 los archivos con extensión *.org a html* y copiando este html, las imágenes y
 los archivos css a un directorio de publicación.
 
-Viene un sitio con un contenido básico dentro de la carpeta =./org= y también se
-puede publicar sitios desde la carpeta =./private= activando el flag
-use-private. Esta carpeta no tiene contenido y hay que respetar la estructura de
-la carpeta =./org=.
+Para esto ahora hay unas funciones a las que se les indica la carpeta base y la
+de publicación y exportan html css e imagenes. Y la ultima funcion se compone de
+las tres anteriores para llamarlas de una sola vez.
+
+Si se utilizan enlaces relativos para la publicación como en la configuración,
+hay que publicar desde este documento o cuanquier otro que este en la misma
+carpeta.
 
 ** Configuración de publicación
 #+begin_src emacs-lisp
@@ -37,7 +40,7 @@ tres parametros, name, basedir y publishdir."
    :html-html5-fancy t
    :section-numbers nil
 
-   :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
+   :html-head "<link rel=\"stylesheet\" href=\"./css/style.css\" type=\"text/css\"/>"
 
    :auto-sitemap t
    :sitemap-title ""
@@ -64,7 +67,6 @@ tres parametros, name, basedir y publishdir."
      :components (,(concat name "")
                   ,(concat name "-images")
                   ,(concat name "-css"))))
-
 
 (setq org-publish-project-alist
       `(,(gen-cfg-publish "public" base-dir publish-dir)
