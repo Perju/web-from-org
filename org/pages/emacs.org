@@ -6,6 +6,10 @@
 :UNNUMBERED: notoc
 :END:
 #+INCLUDE: sitemap.org
+
+** Volver al inicio
+@@html:<a href="/index.html">Página Principal</a>@@
+
 * Emacs
 Esta página contiene información de configuraciones de emacs.
 

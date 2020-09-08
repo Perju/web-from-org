@@ -17,13 +17,12 @@ html, pdf, presentación con reveal.js, etc...
 #+NAME: fig:Imagen-01
 #+ATTR_HTML: :style width: 150px;
 #+ATTR_ORG: :width 150
-[[../images/spacemacs-logo.svg]]
-
+[[./images/spacemacs-logo.svg]]
 #+CAPTION: Org-mode logo
 #+NAME: fig:Imagen-02
 #+ATTR_HTML: :style width: 150px;
 #+ATTR_ORG: :width 150
-[[../images/org-mode-unicorn-logo.png]]
+[[./images/org-mode-unicorn-logo.png]]
 
 @@html:<br style="clear:both;" />@@
 

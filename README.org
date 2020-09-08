@@ -11,77 +11,72 @@ la carpeta =./org=.
 
 ** Configuración de publicación
 #+begin_src emacs-lisp
-(setq base-dir "/mnt/c/Users/JuPa/develop/web-from-org/org/")
-(setq base-dir-private "/mnt/c/Users/JuPa/develop/web-from-org/org/pages/")
-(setq publish-dir "/mnt/c/Users/JuPa/develop/web-from-org/public_html")
+(setq base-dir "./org/")
+(setq publish-dir "./public_html")
+
+(setq base-dir-extra "./org/pages/")
+(setq publish-dir-extra (concat publish-dir "/pages"))
+
+(defun gen-cfg-publish (name bdir pdir)
+  "Crea listas de publicación para nuestros sitios, recibiento
+tres parametros, name, basedir y publishdir."
+  `(,(concat name)
+   :base-directory ,(concat bdir)
+   :base-extension "org"
+   :publishing-directory ,(concat pdir)
+   :publishing-function org-html-publish-to-html
+
+   :language "es"
+   :exclude "private.org"
+   :recursive nil
+   :with-title t
+   :with-date t
+   :with-toc t
+
+   :html-doctype "html5"
+   :html-html5-fancy t
+   :section-numbers nil
+
+   :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
+
+   :auto-sitemap t
+   :sitemap-title ""
+   :sitemap-sort-files anti-chronologically
+   :sitemap-file-entry-format "%d - %t"
+   :sitemap-function org-publish-sitemap-default))
+
+(defun gen-cfg-images (name bdir pdir)
+  `(,(concat name "-images")
+    :base-directory ,(concat bdir "images")
+    :base-extension "jpg\\|gif\\|png\\|svg"
+    :publishing-directory ,(concat pdir "/images")
+    :publishing-function org-publish-attachment))
+
+(defun gen-cfg-css (name bdir pdir)
+  `(,(concat name "-css")
+    :base-directory ,(concat bdir "css")
+    :base-extension "css"
+    :publishing-directory ,(concat pdir "/css")
+    :publishing-function org-publish-attachment))
+
+(defun gen-cfg-website (name)
+   `(,(concat name "-website")
+     :components (,(concat name "")
+                  ,(concat name "-images")
+                  ,(concat name "-css"))))
+
 
 (setq org-publish-project-alist
-      `(("org-to-html"
-         :base-directory ,(concat base-dir)
-         :base-extension "org"
-         :publishing-directory ,(concat publish-dir)
-         :publishing-function org-html-publish-to-html
+      `(,(gen-cfg-publish "public" base-dir publish-dir)
+        ,(gen-cfg-images "public" base-dir publish-dir)
+        ,(gen-cfg-css "public" base-dir publish-dir)
+        ,(gen-cfg-website "public" )
 
-         :language "es"
-         :exclude "private.org"
-         :recursive nil
-         :with-title t
-         :with-date t
-         :with-toc t
-
-         :html-doctype "html5"
-         :html-html5-fancy t
-         :section-numbers nil
-
-         :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
-
-         :auto-sitemap t
-         :sitemap-title ""
-         :sitemap-sort-files anti-chronologically
-         :sitemap-file-entry-format "%d - %t"
-         :sitemap-function org-publish-sitemap-default)
-
-        ("private-to-html"
-         :base-directory ,(concat base-dir-private)
-         :base-extension "org"
-         :publishing-directory ,(concat publish-dir "/pages")
-         :publishing-function org-html-publish-to-html
-
-         :language "es"
-         :exclude "private.org"
-         :recursive nil
-         :with-title t
-         :with-date t
-         :with-toc t
-
-         :html-doctype "html5"
-         :html-html5-fancy t
-         :section-numbers nil
-
-         :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
-
-         :auto-sitemap t
-         :sitemap-title ""
-         :sitemap-sort-files anti-chronologically
-         :sitemap-file-entry-format "%d - %t"
-         :sitemap-function org-publish-sitemap-default)
-
-        ("images"
-         :base-directory ,(concat base-dir "images")
-         :base-extension "jpg\\|gif\\|png\\|svg"
-         :publishing-directory ,(concat publish-dir "/images")
-         :publishing-function org-publish-attachment)
-
-        ("css"
-         :base-directory ,(concat base-dir "css")
-         :base-extension "css"
-         :publishing-directory ,(concat publish-dir "/css")
-         :publishing-function org-publish-attachment)
-        
-        ("website" :components ("org-to-html" "private-to-html" "images" "css"))))
+        ,(gen-cfg-publish "pages" base-dir-extra publish-dir-extra)
+        ,(gen-cfg-images "pages" base-dir-extra publish-dir-extra)
+        ,(gen-cfg-css "pages" base-dir publish-dir-extra)
+        ,(gen-cfg-website "pages" )))
 #+end_src
-
-#+RESULTS:
 
 *** Como publicar el sitio web
 1. Configurar el uso del directorio privado o no

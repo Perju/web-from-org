@@ -10,6 +10,7 @@
 * Pagina principal
 Esta es la pagina principal, el inidice de los indices y en las diferentes
 secciones hay enlaces al indice de cada proyecto.
+[[./images/logo.png]]
 
 * Secciones
 - [[./index.org][Página principal]] :: Esta pagina en si misma, la parte que puede considerarse
