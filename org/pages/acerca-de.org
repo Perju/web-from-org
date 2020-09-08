@@ -5,7 +5,7 @@
 :CUSTOM_ID: sitemap
 :UNNUMBERED: notoc
 :END:
-#+INCLUDE: ../sitemap.org
+#+INCLUDE: sitemap.org
 
 * Acerca de
 Este sitio esta creado con org-mode y spacemacs, como sitio web para organizar

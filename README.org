@@ -11,60 +11,77 @@ la carpeta =./org=.
 
 ** Configuración de publicación
 #+begin_src emacs-lisp
-(setq publish-dir "~/develop/web/sitio/public_html")
-(setq use-private nil)
-(setq base-dir-private "~/develop/web/sitio/private/")
-(setq base-dir "~/develop/web/sitio/org/")
-
-(defun get-base-dir (use-priv) 
-  "Obtiene el directorio segun el valor de use-private"
-  (if use-priv (concat base-dir-private) (concat base-dir)))
+(setq base-dir "/mnt/c/Users/JuPa/develop/web-from-org/org/")
+(setq base-dir-private "/mnt/c/Users/JuPa/develop/web-from-org/org/pages/")
+(setq publish-dir "/mnt/c/Users/JuPa/develop/web-from-org/public_html")
 
 (setq org-publish-project-alist
       `(("org-to-html"
-         :base-directory ,(get-base-dir use-private)
+         :base-directory ,(concat base-dir)
          :base-extension "org"
          :publishing-directory ,(concat publish-dir)
          :publishing-function org-html-publish-to-html
-         
+
          :language "es"
          :exclude "private.org"
-         :recursive t
+         :recursive nil
          :with-title t
          :with-date t
-         :with-toc t 
+         :with-toc t
 
          :html-doctype "html5"
          :html-html5-fancy t
          :section-numbers nil
-         
-         :html-head "<link rel=\"stylesheet\" href=\"../css/style.css\" type=\"text/css\"/>"
+
+         :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
 
          :auto-sitemap t
-         :sitemap-title "" 
+         :sitemap-title ""
+         :sitemap-sort-files anti-chronologically
+         :sitemap-file-entry-format "%d - %t"
+         :sitemap-function org-publish-sitemap-default)
+
+        ("private-to-html"
+         :base-directory ,(concat base-dir-private)
+         :base-extension "org"
+         :publishing-directory ,(concat publish-dir "/pages")
+         :publishing-function org-html-publish-to-html
+
+         :language "es"
+         :exclude "private.org"
+         :recursive nil
+         :with-title t
+         :with-date t
+         :with-toc t
+
+         :html-doctype "html5"
+         :html-html5-fancy t
+         :section-numbers nil
+
+         :html-head "<link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\"/>"
+
+         :auto-sitemap t
+         :sitemap-title ""
          :sitemap-sort-files anti-chronologically
          :sitemap-file-entry-format "%d - %t"
          :sitemap-function org-publish-sitemap-default)
 
         ("images"
-         :base-directory ,(concat (get-base-dir use-private) "images")
+         :base-directory ,(concat base-dir "images")
          :base-extension "jpg\\|gif\\|png\\|svg"
          :publishing-directory ,(concat publish-dir "/images")
          :publishing-function org-publish-attachment)
 
         ("css"
-         :base-directory ,(concat (get-base-dir use-private) "css")
+         :base-directory ,(concat base-dir "css")
          :base-extension "css"
          :publishing-directory ,(concat publish-dir "/css")
          :publishing-function org-publish-attachment)
-        ("website" :components ("org-to-html" "images" "css"))))
+        
+        ("website" :components ("org-to-html" "private-to-html" "images" "css"))))
 #+end_src
 
 #+RESULTS:
-| org-to-html | :base-directory | ~/develop/web/sitio/private/       | :base-extension | org  | :publishing-directory | ~/develop/web/sitio/public_html     | :publishing-function | org-html-publish-to-html | :language                              | es                   | :exclude               | private.org | :recursive | t | :with-title | t | :with-date | t | :with-toc | t | :html-doctype | html5 | :html-html5-fancy | t | :section-numbers | nil | :html-head | <link rel="stylesheet" href="../css/style.css" type="text/css"/> | :auto-sitemap | t | :sitemap-title |   | :sitemap-sort-files | anti-chronologically | :sitemap-file-entry-format | %d - %t | :sitemap-function | org-publish-sitemap-default |
-| images      | :base-directory | ~/develop/web/sitio/private/images | :base-extension | jpg\ | gif\                  | png\                                | svg                  | :publishing-directory    | ~/develop/web/sitio/public_html/images | :publishing-function | org-publish-attachment |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
-| css         | :base-directory | ~/develop/web/sitio/private/css    | :base-extension | css  | :publishing-directory | ~/develop/web/sitio/public_html/css | :publishing-function | org-publish-attachment   |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
-| website     | :components     | (org-to-html images css)           |                 |      |                       |                                     |                      |                          |                                        |                      |                        |             |            |   |             |   |            |   |           |   |               |       |                   |   |                  |     |            |                                                                  |               |   |                |   |                     |                      |                            |         |                   |                             |
 
 *** Como publicar el sitio web
 1. Configurar el uso del directorio privado o no

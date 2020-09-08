@@ -5,7 +5,7 @@
 :CUSTOM_ID: sitemap
 :UNNUMBERED: notoc
 :END:
-#+INCLUDE: ../sitemap.org
+#+INCLUDE: sitemap.org
 * Emacs
 Esta página contiene información de configuraciones de emacs.
 
