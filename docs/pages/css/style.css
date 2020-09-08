@@ -14,15 +14,25 @@ body {
     margin-right: 12px;
 }
 
-#table-of-contents, picture, .sitemap {
+#table-of-contents, figure, .sitemap {
     width: 23%;
     float: left;
 }
+
 .sitemap {
     clear: left;
 }
-picture {
+
+figure {
     display: inline-block;
+}
+
+figure > img {
+    width: 180px;
+}
+
+li {
+    clear: both;
 }
 
 a, a:visited {
@@ -32,4 +42,3 @@ a, a:visited {
 .relleno {
     color: white;
 }
-/* asdf */
