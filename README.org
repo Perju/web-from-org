@@ -12,14 +12,13 @@ Si se utilizan enlaces relativos para la publicación como en la configuración,
 hay que publicar desde este documento o cuanquier otro que este en la misma
 carpeta.
 
-** Configuración de publicación
-#+begin_src emacs-lisp
-(setq base-dir "./org/")
-(setq publish-dir "./public_html")
+*** Como publicar el sitio web
+1. Evaluar las funciones para publicar con =C-c C-c= o =, ,=
+2. Modificar segun necesidades la configuración de publicación y evaluar
+3. Usar el publish dispatcher de org mode =M-m m e e P x=
 
-(setq base-dir-extra "./org/pages/")
-(setq publish-dir-extra (concat publish-dir "/pages"))
-
+** Funciones para publicar
+#+begin_src emacs-lisp :results output silent
 (defun gen-cfg-publish (name bdir pdir)
   "Crea listas de publicación para nuestros sitios, recibiento
 tres parametros, name, basedir y publishdir."
@@ -62,11 +61,27 @@ tres parametros, name, basedir y publishdir."
     :publishing-directory ,(concat pdir "/css")
     :publishing-function org-publish-attachment))
 
+(defun gen-cfg-revealjs (name bdir pdir)
+  `(,(concat name "-revealjs")
+    :base-directory ,(concat bdir "revealjs")
+    :base-extension "org"
+    :publishing-directory ,(concat pdir "/revealjs")
+    :publishing-function org-re-reveal-publish-to-reveal-client))
+
 (defun gen-cfg-website (name)
    `(,(concat name "-website")
      :components (,(concat name "")
                   ,(concat name "-images")
                   ,(concat name "-css"))))
+#+end_src
+
+** Configuración de publicación
+#+begin_src emacs-lisp
+(setq base-dir "./org/")
+(setq publish-dir "./public_html")
+
+(setq base-dir-extra "/home/username/org-files/")
+(setq publish-dir-extra (concat publish-dir "/pages"))
 
 (setq org-publish-project-alist
       `(,(gen-cfg-publish "public" base-dir publish-dir)
@@ -77,11 +92,6 @@ tres parametros, name, basedir y publishdir."
         ,(gen-cfg-publish "pages" base-dir-extra publish-dir-extra)
         ,(gen-cfg-images "pages" base-dir-extra publish-dir-extra)
         ,(gen-cfg-css "pages" base-dir publish-dir-extra)
+        ,(gen-cfg-revealjs "pages" base-dir-extra publish-dir-extra)
         ,(gen-cfg-website "pages" )))
 #+end_src
-
-*** Como publicar el sitio web
-1. Configurar el uso del directorio privado o no
-2. Cargar la configuración de publicación
-3. Usar el publish dispatcher de org mode =M-m m e e P x=
- 
