@@ -1,26 +1,45 @@
 body {
-    max-width: 800px;
-    margin: auto;
     background-color: #111;
     color: #ccc;
 }
 
+#content {
+    margin: auto;
+    max-width: 1300px;
+}
+
+#content > * {
+    width: 800px;
+    margin: auto;
+}
+
 #content > div, #table-of-contents {
-    display: flow-root;
     background-color: #333;
     border-radius: 8px;
     padding: 12px;
-    margin-bottom: 12px;
-    margin-right: 12px;
+    margin: 10px auto;
 }
 
-#table-of-contents, figure, .sitemap {
-    width: 23%;
+#content > div > div {
+    display: flex;
+}
+#content > div > div {
+    display: block;
+}
+
+#table-of-contents, figure {
+    width: 200px;
+    float: right;
+
+}
+
+#outline-container-sitemap {
+    width: 200px;
     float: left;
 }
 
-.sitemap {
-    clear: left;
+.outline-2 {
+    margin-top: 10px !important;
 }
 
 figure {
@@ -29,10 +48,6 @@ figure {
 
 figure > img {
     width: 180px;
-}
-
-li {
-    clear: both;
 }
 
 a, a:visited {
