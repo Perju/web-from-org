@@ -41,6 +41,8 @@ carpeta.
 #+end_src
 
 ** Configuración de publicación
+Hay que configurar las variables org-re-reveal-root y org-re-reveal-version para
+exportar con la version correcta de Reveal.js.
 #+begin_src emacs-lisp
 (setq public-dirs '("./org/" "./public_html"))
 (setq pages-dirs '("/home/username/org-files/" "./public_html/pages"))
@@ -48,7 +50,7 @@ carpeta.
 (setq main-args '("" "org" org-html-publish-to-html))
 (setq img-args '("images" "jpg\\|gif\\|png\\|svg" org-publish-attachment))
 (setq css-args '("css" "css" org-publish-attachment))
-(setq reveal-args '("revealjs" "org" org-re-reveal-publish-to-reveal-client))
+(setq reveal-args '("revealjs" "org" org-re-reveal-publish-to-reveal))
 
 (setq main-extras
       '(:language "es"
@@ -70,12 +72,12 @@ carpeta.
 (setq pages-main (gen-cfg "pages" pages-dirs main-args main-extras))
 (setq pages-images (gen-cfg "pages" pages-dirs img-args))
 (setq pages-css (gen-cfg "pages" pages-dirs css-args))
-(setq pages-reveljs (gen-cfg "pages" pages-dirs reveal-args))
+(setq pages-revealjs (gen-cfg "pages" pages-dirs reveal-args))
 
 (setq org-publish-project-alist
       `(,public-main ,public-images ,public-css
         ,(gen-cfg-website "public" )
 
-        ,pages-main  ,pages-images ,pages-css
+        ,pages-main  ,pages-images ,pages-css, pages-revealjs
         ,(gen-cfg-website "pages" )))
 #+end_src
