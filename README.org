@@ -19,54 +19,19 @@ carpeta.
 
 ** Funciones para publicar
 #+begin_src emacs-lisp :results output silent
-(defun gen-cfg-publish (name bdir pdir)
-  "Crea listas de publicación para nuestros sitios, recibiento
-tres parametros, name, basedir y publishdir."
-  `(,(concat name)
-   :base-directory ,(concat bdir)
-   :base-extension "org"
-   :publishing-directory ,(concat pdir)
-   :publishing-function org-html-publish-to-html
-
-   :language "es"
-   :exclude "private.org"
-   :recursive nil
-   :with-title t
-   :with-date t
-   :with-toc t
-
-   :html-doctype "html5"
-   :html-html5-fancy t
-   :section-numbers nil
-
-   :html-head "<link rel=\"stylesheet\" href=\"./css/style.css\" type=\"text/css\"/>"
-
-   :auto-sitemap t
-   :sitemap-title ""
-   :sitemap-sort-files anti-chronologically
-   :sitemap-file-entry-format "%d - %t"
-   :sitemap-function org-publish-sitemap-default))
-
-(defun gen-cfg-images (name bdir pdir)
-  `(,(concat name "-images")
-    :base-directory ,(concat bdir "images")
-    :base-extension "jpg\\|gif\\|png\\|svg"
-    :publishing-directory ,(concat pdir "/images")
-    :publishing-function org-publish-attachment))
-
-(defun gen-cfg-css (name bdir pdir)
-  `(,(concat name "-css")
-    :base-directory ,(concat bdir "css")
-    :base-extension "css"
-    :publishing-directory ,(concat pdir "/css")
-    :publishing-function org-publish-attachment))
-
-(defun gen-cfg-revealjs (name bdir pdir)
-  `(,(concat name "-revealjs")
-    :base-directory ,(concat bdir "revealjs")
-    :base-extension "org"
-    :publishing-directory ,(concat pdir "/revealjs")
-    :publishing-function org-re-reveal-publish-to-reveal-client))
+(defun gen-cfg (name io-dirs args ;; surname files-regex fn-publish
+                     &optional extra)
+  (let ((pkg-name (if (not (string-equal (car args) ""))
+                      (concat name "-" (car args))
+                    name) ))
+    (append `(,pkg-name
+              :base-directory ,(concat (car io-dirs) (car args))
+              :base-extension ,(nth 1 args)
+              :publishing-directory ,(if (not (string-equal (car args) ""))
+                                         (concat (cadr io-dirs) "/" (car args))
+                                       (cadr io-dirs))
+              :publishing-function ,(nth 2 args))
+            extra)))
 
 (defun gen-cfg-website (name)
    `(,(concat name "-website")
@@ -77,21 +42,40 @@ tres parametros, name, basedir y publishdir."
 
 ** Configuración de publicación
 #+begin_src emacs-lisp
-(setq base-dir "./org/")
-(setq publish-dir "./public_html")
+(setq public-dirs '("./org/" "./public_html"))
+(setq pages-dirs '("/home/username/org-files/" "./public_html/pages"))
 
-(setq base-dir-extra "/home/username/org-files/")
-(setq publish-dir-extra (concat publish-dir "/pages"))
+(setq main-args '("" "org" org-html-publish-to-html))
+(setq img-args '("images" "jpg\\|gif\\|png\\|svg" org-publish-attachment))
+(setq css-args '("css" "css" org-publish-attachment))
+(setq reveal-args '("revealjs" "org" org-re-reveal-publish-to-reveal-client))
+
+(setq main-extras
+      '(:language "es"
+        :exclude "private.org" :recursive nil
+        :with-title t :with-date t :with-toc t
+
+        :html-doctype "html5" :html-html5-fancy t :section-numbers nil
+        :html-head "<link rel=\"stylesheet\" href=\"./css/style.css\" type=\"text/css\"/>"
+
+        :auto-sitemap t :sitemap-title ""
+        :sitemap-sort-files anti-chronologically
+        :sitemap-file-entry-format "%d - %t"
+        :sitemap-function org-publish-sitemap-default))
+
+(setq public-main (gen-cfg "public" public-dirs main-args main-extras))
+(setq public-images (gen-cfg "public" public-dirs img-args))
+(setq public-css (gen-cfg "public" public-dirs css-args))
+
+(setq pages-main (gen-cfg "pages" pages-dirs main-args main-extras))
+(setq pages-images (gen-cfg "pages" pages-dirs img-args))
+(setq pages-css (gen-cfg "pages" pages-dirs css-args))
+(setq pages-reveljs (gen-cfg "pages" pages-dirs reveal-args))
 
 (setq org-publish-project-alist
-      `(,(gen-cfg-publish "public" base-dir publish-dir)
-        ,(gen-cfg-images "public" base-dir publish-dir)
-        ,(gen-cfg-css "public" base-dir publish-dir)
+      `(,public-main ,public-images ,public-css
         ,(gen-cfg-website "public" )
 
-        ,(gen-cfg-publish "pages" base-dir-extra publish-dir-extra)
-        ,(gen-cfg-images "pages" base-dir-extra publish-dir-extra)
-        ,(gen-cfg-css "pages" base-dir publish-dir-extra)
-        ,(gen-cfg-revealjs "pages" base-dir-extra publish-dir-extra)
+        ,pages-main  ,pages-images ,pages-css
         ,(gen-cfg-website "pages" )))
 #+end_src
