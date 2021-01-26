@@ -6,13 +6,15 @@
 (in-package :web-from-org)
 
 ;; Servidor web
-(defun start-server (port)
-  (start (make-instance 'easy-acceptor :port port)))
+(defvar web-server (make-instance 'easy-acceptor :port 8080))
 
-(defvar web-server (start-server 8080))
+(defun start-server (web-server)
+  (when (not (started-p web-server)
+             (start web-server))))
 
 (defun stop-server (web-server)
-  (stop web-server))
+  (when (started-p web-server)
+    (stop web-server)))
 
 ;; Servir ficheros estaticos
 (push (create-folder-dispatcher-and-handler
