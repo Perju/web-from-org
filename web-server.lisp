@@ -8,9 +8,12 @@
 ;; Servidor web
 (defvar web-server (make-instance 'easy-acceptor :port 8080))
 
+;; Se necesitan el certificado, la calve privada y la contraseña ssl
+;; (defvar ssl-web-server (make-instance 'easy-ssl-acceptor :port 443))
+
 (defun start-server (web-server)
-  (when (not (started-p web-server)
-             (start web-server))))
+  (when (not (started-p web-server))
+    (start web-server)))
 
 (defun stop-server (web-server)
   (when (started-p web-server)
