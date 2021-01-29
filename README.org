@@ -57,8 +57,10 @@ exportar con la version correcta de Reveal.js.
         :exclude "private.org" :recursive nil
         :with-title t :with-date t :with-toc t
 
+        :html-head-include-default-style nil
         :html-doctype "html5" :html-html5-fancy t :section-numbers nil
         :html-head "<link rel=\"stylesheet\" href=\"./css/style.css\" type=\"text/css\"/>"
+        :html-head-extra "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\"/>"
 
         :auto-sitemap t :sitemap-title ""
         :sitemap-sort-files anti-chronologically
