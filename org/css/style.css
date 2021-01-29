@@ -1,59 +1,64 @@
 body {
-    background-color: #111;
-    color: #ccc;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: #111;
+  color: #ccc;
+}
+
+body > div {
+  margin: auto;
 }
 
 #content {
-    margin: auto;
-    max-width: 1300px;
+  display: grid;
+  grid-template-columns: auto 800px auto;
+  grid-gap: 8px;
+  margin: auto;
 }
 
-#content > * {
-    width: 800px;
-    margin: auto;
+#content > div {
+  grid-column: 2;
+}
+#content > div,
+#content > nav {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
 }
 
-#content > div, #table-of-contents {
-    background-color: #333;
-    border-radius: 8px;
-    padding: 12px;
-    margin: 10px auto;
+#content > header {
+  grid-column: 2;
 }
 
-#content > div > div {
-    display: flex;
-}
-#content > div > div {
-    display: block;
-}
-
-#table-of-contents, figure {
-    width: 200px;
-    float: right;
-
+#table-of-contents {
+  width: 200px;
+  grid-column: 3;
+  grid-row: 2;
+  height: min-content;
 }
 
-#outline-container-sitemap {
-    width: 200px;
-    float: left;
-}
-
-.outline-2 {
-    margin-top: 10px !important;
+#content > #outline-container-sitemap {
+  width: 200px;
+  grid-column: 1;
+  grid-row: 2;
+  height: min-content;
 }
 
 figure {
-    display: inline-block;
+  display: inline-block;
 }
 
 figure > img {
-    width: 180px;
+  width: 180px;
 }
 
-a, a:visited {
-    color: darkgoldenrod
+a,
+a:visited {
+  color: darkgoldenrod;
 }
 
 .relleno {
-    color: white;
+  color: white;
 }
