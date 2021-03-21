@@ -21,21 +21,23 @@ carpeta.
 #+begin_src emacs-lisp :results output silent
 (defun gen-cfg (name io-dirs args ;; surname files-regex fn-publish
                      &optional extra)
-  (let ((pkg-name (if (not (string-equal (car args) ""))
-                      (concat name "-" (car args))
-                    name) ))
-    (append `(,pkg-name
-              :base-directory ,(concat (car io-dirs) (car args))
+  (let ((base-dir (if (not (string-equal (car args) "html"))
+                      (concat (car io-dirs) (car args))
+                    (car io-dirs)))
+        (publish-dir (if (not (string-equal (car args) "html"))
+                         (concat (cadr io-dirs) "/" (car args))
+                       (cadr io-dirs))))
+    (append `(,(concat name "-" (car args))
+              :base-directory ,base-dir
               :base-extension ,(nth 1 args)
-              :publishing-directory ,(if (not (string-equal (car args) ""))
-                                         (concat (cadr io-dirs) "/" (car args))
-                                       (cadr io-dirs))
-              :publishing-function ,(nth 2 args))
+              :publishing-directory ,publish-dir
+              :publishing-function ,(nth 2 args)
+              :publishing-directory ,publish-dir)
             extra)))
 
 (defun gen-cfg-website (name)
    `(,(concat name "-website")
-     :components (,(concat name "")
+     :components (,(concat name "-html")
                   ,(concat name "-images")
                   ,(concat name "-css"))))
 #+end_src
@@ -47,7 +49,7 @@ exportar con la version correcta de Reveal.js.
 (setq public-dirs '("./org/" "./public_html"))
 (setq pages-dirs '("/home/username/org-files/" "./public_html/pages"))
 
-(setq main-args '("" "org" org-html-publish-to-html))
+(setq html-args '("html" "org" org-html-publish-to-html))
 (setq img-args '("images" "jpg\\|gif\\|png\\|svg" org-publish-attachment))
 (setq css-args '("css" "css" org-publish-attachment))
 (setq reveal-args '("revealjs" "org" org-re-reveal-publish-to-reveal))
@@ -67,11 +69,11 @@ exportar con la version correcta de Reveal.js.
         :sitemap-file-entry-format "%d - %t"
         :sitemap-function org-publish-sitemap-default))
 
-(setq public-main (gen-cfg "public" public-dirs main-args main-extras))
+(setq public-main (gen-cfg "public" public-dirs html-args main-extras))
 (setq public-images (gen-cfg "public" public-dirs img-args))
 (setq public-css (gen-cfg "public" public-dirs css-args))
 
-(setq pages-main (gen-cfg "pages" pages-dirs main-args main-extras))
+(setq pages-main (gen-cfg "pages" pages-dirs html-args main-extras))
 (setq pages-images (gen-cfg "pages" pages-dirs img-args))
 (setq pages-css (gen-cfg "pages" pages-dirs css-args))
 (setq pages-revealjs (gen-cfg "pages" pages-dirs reveal-args))
