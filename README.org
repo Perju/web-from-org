@@ -31,8 +31,7 @@ carpeta.
               :base-directory ,base-dir
               :base-extension ,(nth 1 args)
               :publishing-directory ,publish-dir
-              :publishing-function ,(nth 2 args)
-              :publishing-directory ,publish-dir)
+              :publishing-function ,(nth 2 args))
             extra)))
 
 (defun gen-cfg-website (name)
