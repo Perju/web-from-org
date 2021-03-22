@@ -1,4 +1,4 @@
-#+TITLE: Pagina principal
+#+TITLE: Página principal
 * Sitemap
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: sitemap
@@ -7,13 +7,16 @@
 :END:
 #+INCLUDE: sitemap.org
 
-* Pagina principal
-Esta es la pagina principal, el inidice de los indices y en las diferentes
-secciones hay enlaces al indice de cada proyecto.
+* Página principal
+Esta es la página principal que se publica con las funciones que se encuentran
+en README.org, los enlaces a los indices de cada directorio hay que añadirlos en
+el en siguiente bloque para que se adapten a la configuración de publicación que
+se quiera usar.
+
 [[./images/logo.png]]
 
 * Secciones
 - [[./index.org][Página principal]] :: Esta pagina en si misma, la parte que puede considerarse
   publica.
 
-- [[./pages/index.org][pages]] :: Este es el projecto privado por defecto
+- [[./pages/index.org][pages]] :: Este es el proyecto privado por defecto
