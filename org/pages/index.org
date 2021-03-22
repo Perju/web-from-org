@@ -1,4 +1,4 @@
-#+TITLE: Indice páginas
+#+TITLE: Página principal
 * Sitemap
 :PROPERTIES:
 :HTML_CONTAINER_CLASS: sitemap
@@ -8,6 +8,18 @@
 #+INCLUDE: sitemap.org
 
 ** Volver al inicio
-@@html:<a href="/index.html">Página Principal</a>@@
+@@html:<a href="../index.html">Página Principal</a>@@
 
+* Sitio personal
+Este es el contenido alojado en el subdirectorio "pages" a modo de ejemplo. Mi
+intención ha sido crear un sitio personal para ver mi documentación en fomato
+de sitio web al estilo wiki con enlaces internos.
 
+Todo el contenido de estos documentos esta a modo de ejemplo para rellenar,
+poder visualizar como esta organizado el contenido y probar que funciona bien la
+exportación de los documentos.
+
+* Otras páginas de ejemplo
+Hay mas páginas con ejemplos para ver como son exportadas las cabeceras de
+diferentes niveles, cabeceras de nivel uno que contienen cabeceras de nivel dos
+y como se genera el el indice de la página en la parte derecha.

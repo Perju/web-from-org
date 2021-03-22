@@ -1,5 +1,5 @@
 #+TITLE: 
 
-- [[file:index.org][Indice páginas]]
-- [[file:emacs.org][EMACS]]
+- [[file:index.org][Página principal]]
 - [[file:acerca-de.org][Acerca de]]
+- [[file:emacs.org][EMACS]]
