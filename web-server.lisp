@@ -49,6 +49,15 @@
        ($ document)
        (ready (lambda ()
                 (chain
+                 ($ window)
+                 (scroll (lambda ()
+                           (if (> this.scroll-y 500)
+                               (chain ($ ".scroll-up-btn")
+                                      (add-class "show"))
+                               (chain ($ ".scroll-up-btn")
+                                (remove-class "show")))
+                           NULL)))
+                (chain
                  ($ ".scroll-up-btn")
                  (click (lambda ()
                           (chain
