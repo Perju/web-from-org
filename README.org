@@ -37,8 +37,7 @@ carpeta.
 (defun gen-cfg-website (name)
    `(,(concat name "-website")
      :components (,(concat name "-html")
-                  ,(concat name "-images")
-                  ,(concat name "-css"))))
+                  ,(concat name "-images"))))
 #+end_src
 
 ** Configuración de publicación
@@ -51,7 +50,16 @@ exportar con la version correcta de Reveal.js.
 (setq html-args '("html" "org" org-html-publish-to-html))
 (setq img-args '("images" "jpg\\|gif\\|png\\|svg" org-publish-attachment))
 (setq css-args '("css" "css" org-publish-attachment))
+(setq js-args '("scripts" "js" org-publish-attachment))
 (setq reveal-args '("revealjs" "org" org-re-reveal-publish-to-reveal))
+
+(setq org-html-postamble t)
+(setq org-html-postamble-format
+      `(("es" ,(concat
+                "<p class=\"author\">Author: %a (%e)</p>\n"
+                "<p class=\"creator\">%c</p>\n"
+                "<p class=\"validation\">%v</p>\n"
+                "<div class=\"scroll-up-btn\"><i></i></div>"))))
 
 (setq main-extras
       '(:language "es"
@@ -73,7 +81,6 @@ exportar con la version correcta de Reveal.js.
       scr-a "<script src=\""
       scr-c "\"></script>")
 
-
 (setq public-extras
       (append main-extras
               (list :html-head (concat link-a "./css/style.css" link-c)
@@ -86,26 +93,30 @@ exportar con la version correcta de Reveal.js.
                     :html-head-extra (concat link-a "../css/org.css" link-c)
                     :html-head-extra (concat scr-a "../scripts/index.js" scr-c))))
 
-
-(setq org-html-postamble-format
-      `(("es" ,(concat "<p class=\"author\">Author: %a (%e)</p>\n"
-                       "<p class=\"date\">Date: %d</p>\n"
-                       "<p class=\"creator\">%c</p>\n"
-                       "<p class=\"validation\">%v</p>\n"
-                       "<div class=\"scroll-up-btn\"><i></i></div>"))))
-
 (setq public-main (gen-cfg "public" public-dirs html-args public-extras))
 (setq public-images (gen-cfg "public" public-dirs img-args))
 (setq public-css (gen-cfg "public" public-dirs css-args))
+(setq public-js (gen-cfg "public" public-dirs js-args))
 
 (setq pages-main (gen-cfg "pages" pages-dirs html-args pages-extras))
 (setq pages-images (gen-cfg "pages" pages-dirs img-args))
 (setq pages-revealjs (gen-cfg "pages" pages-dirs reveal-args))
 
 (setq org-publish-project-alist
-      `(,public-main ,public-images ,public-css
+      `(,public-main ,public-images ,public-css, public-js
         ,(gen-cfg-website "public" )
 
         ,pages-main ,pages-images ,pages-revealjs
         ,(gen-cfg-website "pages" )))
 #+end_src
+
+#+RESULTS:
+| public-html    | :base-directory | ./org/                             | :base-extension | org  | :publishing-directory | ./public_html                | :publishing-function | org-html-publish-to-html        | :language                  | es                   | :exclude               | private.org | :recursive | nil | :with-title | t | :with-date | t | :with-toc | t | :html-head-include-default-style | nil | :html-doctype | html5 | :html-html5-fancy | t | :section-numbers | nil | :html-head-extra | <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous""></script> | :auto-sitemap | t | :sitemap-title |   | :sitemap-sort-files | anti-chronologically | :sitemap-file-entry-format | %d - %t | :sitemap-function | org-publish-sitemap-default | :html-head | <link rel="stylesheet" href="./css/style.css" type="text/css"/>  | :html-head-extra | <link rel="stylesheet" href="./css/org.css" type="text/css"/>  | :html-head-extra | <script src="./scripts/index.js"></script>  |
+| public-images  | :base-directory | ./org/images                       | :base-extension | jpg\ | gif\                  | png\                         | svg                  | :publishing-directory           | ./public_html/images       | :publishing-function | org-publish-attachment |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| public-css     | :base-directory | ./org/css                          | :base-extension | css  | :publishing-directory | ./public_html/css            | :publishing-function | org-publish-attachment          |                            |                      |                        |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| public-scripts | :base-directory | ./org/scripts                      | :base-extension | js   | :publishing-directory | ./public_html/scripts        | :publishing-function | org-publish-attachment          |                            |                      |                        |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| public-website | :components     | (public-html public-images)        |                 |      |                       |                              |                      |                                 |                            |                      |                        |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| pages-html     | :base-directory | /home/pi/Dropbox/org/Blog/         | :base-extension | org  | :publishing-directory | ./public_html/pages          | :publishing-function | org-html-publish-to-html        | :language                  | es                   | :exclude               | private.org | :recursive | nil | :with-title | t | :with-date | t | :with-toc | t | :html-head-include-default-style | nil | :html-doctype | html5 | :html-html5-fancy | t | :section-numbers | nil | :html-head-extra | <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous""></script> | :auto-sitemap | t | :sitemap-title |   | :sitemap-sort-files | anti-chronologically | :sitemap-file-entry-format | %d - %t | :sitemap-function | org-publish-sitemap-default | :html-head | <link rel="stylesheet" href="../css/style.css" type="text/css"/> | :html-head-extra | <link rel="stylesheet" href="../css/org.css" type="text/css"/> | :html-head-extra | <script src="../scripts/index.js"></script> |
+| pages-images   | :base-directory | /home/pi/Dropbox/org/Blog/images   | :base-extension | jpg\ | gif\                  | png\                         | svg                  | :publishing-directory           | ./public_html/pages/images | :publishing-function | org-publish-attachment |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| pages-revealjs | :base-directory | /home/pi/Dropbox/org/Blog/revealjs | :base-extension | org  | :publishing-directory | ./public_html/pages/revealjs | :publishing-function | org-re-reveal-publish-to-reveal |                            |                      |                        |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
+| pages-website  | :components     | (pages-html pages-images)          |                 |      |                       |                              |                      |                                 |                            |                      |                        |             |            |     |             |   |            |   |           |   |                                  |     |               |       |                   |   |                  |     |                  |                                                                                              |               |   |                |   |                     |                      |                            |         |                   |                             |            |                                                                  |                  |                                                                |                  |                                             |
