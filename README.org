@@ -60,34 +60,52 @@ exportar con la version correcta de Reveal.js.
 
         :html-head-include-default-style nil
         :html-doctype "html5" :html-html5-fancy t :section-numbers nil
-        :html-head "<link rel=\"stylesheet\" href=\"./css/style.css\" type=\"text/css\"/>"
-        :html-head-extra "<link rel=\"stylesheet\" href=\"./css/org.css\" type=\"text/css\"/>"
+        :html-head-extra
+         "<script src=\"https://code.jquery.com/jquery-3.6.0.min.js\" crossorigin=\"anonymous\"\"></script>"
 
         :auto-sitemap t :sitemap-title ""
         :sitemap-sort-files anti-chronologically
         :sitemap-file-entry-format "%d - %t"
         :sitemap-function org-publish-sitemap-default))
 
-(setq public-main (gen-cfg "public" public-dirs html-args main-extras))
+(setq link-a "<link rel=\"stylesheet\" href=\""
+      link-c "\" type=\"text/css\"/>"
+      scr-a "<script src=\""
+      scr-c "\"></script>")
+
+
+(setq public-extras
+      (append main-extras
+              (list :html-head (concat link-a "./css/style.css" link-c)
+                    :html-head-extra (concat link-a "./css/org.css" link-c)
+                    :html-head-extra (concat scr-a "./scripts/index.js" scr-c))))
+
+(setq pages-extras
+      (append main-extras
+              (list :html-head (concat link-a "../css/style.css" link-c)
+                    :html-head-extra (concat link-a "../css/org.css" link-c)
+                    :html-head-extra (concat scr-a "../scripts/index.js" scr-c))))
+
+
+(setq org-html-postamble-format
+      `(("es" ,(concat "<p class=\"author\">Author: %a (%e)</p>\n"
+                       "<p class=\"date\">Date: %d</p>\n"
+                       "<p class=\"creator\">%c</p>\n"
+                       "<p class=\"validation\">%v</p>\n"
+                       "<div class=\"scroll-up-btn\"><i></i></div>"))))
+
+(setq public-main (gen-cfg "public" public-dirs html-args public-extras))
 (setq public-images (gen-cfg "public" public-dirs img-args))
 (setq public-css (gen-cfg "public" public-dirs css-args))
 
-(setq pages-main (gen-cfg "pages" pages-dirs html-args main-extras))
+(setq pages-main (gen-cfg "pages" pages-dirs html-args pages-extras))
 (setq pages-images (gen-cfg "pages" pages-dirs img-args))
-(setq pages-css (gen-cfg "pages" pages-dirs css-args))
 (setq pages-revealjs (gen-cfg "pages" pages-dirs reveal-args))
 
 (setq org-publish-project-alist
       `(,public-main ,public-images ,public-css
         ,(gen-cfg-website "public" )
 
-        ,pages-main  ,pages-images ,pages-css, pages-revealjs
+        ,pages-main ,pages-images ,pages-revealjs
         ,(gen-cfg-website "pages" )))
-#+end_src
-
-*** Configuración para Revealjs
-Hay que establecer el valor de =org-re-reveal-revealjs-version= Según el valor
-de la variable =org-re-reveal-version=.
-#+begin_src emacs-lisp
-(setq org-re-reveal-revealjs-version "3.8")
 #+end_src
