@@ -46,7 +46,7 @@
 
 (defun index-js ()
   (ps (chain
-       ($ 'document)
+       ($ document)
        (ready (lambda ()
                 (chain
                  ($ ".scroll-up-btn")
