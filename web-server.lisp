@@ -44,27 +44,38 @@
 (defun greeting-callback ()
   (ps (alert "Hello World!")))
 
+(defun show-hide-btn ()
+  '(chain
+    ($ window)
+    (scroll (lambda ()
+              (if (> (@ this scroll-y) 500)
+                  (chain ($ ".scroll-up-btn")
+                         (add-class "show"))
+                  (chain ($ ".scroll-up-btn")
+                         (remove-class "show")))
+              undefined))))
+
+(defun scroll-up-script ()
+  '(chain
+    ($ ".scroll-up-btn")
+    (click (lambda ()
+             (chain
+              ($ "html")
+              (animate (create :scroll-top 0)))
+             undefined))))
+
 (defun index-js ()
-  (ps (chain
-       ($ document)
-       (ready (lambda ()
-                (chain
-                 ($ window)
-                 (scroll (lambda ()
-                           (if (> this.scroll-y 500)
-                               (chain ($ ".scroll-up-btn")
-                                      (add-class "show"))
-                               (chain ($ ".scroll-up-btn")
-                                (remove-class "show")))
-                           NULL)))
-                (chain
-                 ($ ".scroll-up-btn")
-                 (click (lambda ()
-                          (chain
-                           ($ "html")
-                           (animate (create :scroll-top 0)))
-                          NULL)))
-                NULL)))))
+  (ps* `(chain
+         ($ document)
+         (ready (lambda ()
+                  ,(show-hide-btn)
+                  ,(scroll-up-script)
+                  undefined)))))
+
+;;; Basic event hanlder example
+;; (ps (lambda (event) (chain event (prevent-default))
+;;       (do-something)
+;;       "return value"))
 
 ;; jquery test
 (defmacro get-by (tag)
@@ -78,4 +89,4 @@
 
 (defun gen-scripts()
   (gen-js-file "org/scripts/index.js" (index-js)))
-(gen-scripts)
+;; (gen-scripts)
