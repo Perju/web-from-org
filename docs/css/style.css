@@ -61,6 +61,34 @@ a:visited {
   color: var(--txt-white);
 }
 
+/* Tables general styles */
+table {
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  margin: 12px;
+  background: var(--prim-2);
+}
+table thead tr {
+  background: var(--second-1-2);
+  text-align: left;
+}
+table thead tr th:nth-of-type(even) {
+  background: var(--second-1-0);
+}
+table tbody tr {
+  border-top: 1px solid var(--prim-4);
+}
+table tr td:nth-of-type(even) {
+  background: var(--prim-0);
+}
+table tbody tr:last-of-type {
+  border-bottom: 4px solid var(--second-1-2);
+}
+table :is(td, th) {
+  padding: 12px 15px;
+}
+
+/* Content general styles */
 #content {
   display: grid;
   grid-template-columns: auto 800px auto;
