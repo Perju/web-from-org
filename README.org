@@ -38,6 +38,22 @@ carpeta.
    `(,(concat name "-website")
      :components (,(concat name "-html")
                   ,(concat name "-images"))))
+
+(defun gen-html-tag (tag &optional properties closep)
+    (concat "<" tag (apply #'concat properties)
+            (if closep
+                (concat "></" tag ">")
+              "/>")))
+
+(defun gen-css-tag (href)
+  (gen-html-tag
+   "link" (list " rel=\"stylesheet\""
+                " href=\"" href "\""
+                " type=\"text/css\"")))
+
+(defun gen-script-tag (src &optional cross)
+  (gen-html-tag
+   "script" (list " src=\"" src "\"" "type=\"text/javascript\"" cross) t))
 #+end_src
 
 ** Configuración de publicación
@@ -61,6 +77,14 @@ exportar con la version correcta de Reveal.js.
                 "<p class=\"validation\">%v</p>\n"
                 "<div class=\"scroll-up-btn\"><u></u></div>"))))
 
+(setq org-html-home/up-format
+      (concat
+       "<div id=\"org-div-home-and-up\">"
+       "<a accesskey=\"h\" href=\"%s\"> INDICE </a>"
+       "|"
+       "<a accesskey=\"H\" href=\"%s\"> INICIO </a>"
+       "</div>"))
+
 (setq main-extras
       '(:language "es"
         :exclude "private.org" :recursive nil
@@ -70,34 +94,34 @@ exportar con la version correcta de Reveal.js.
         :html-doctype "html5" :html-html5-fancy t :section-numbers nil
 
         :auto-sitemap t :sitemap-title ""
+        :html-link-home "/index.html"
+        :html-link-up "./index.html"
         :sitemap-sort-files anti-chronologically
         :sitemap-file-entry-format "%d - %t"
         :sitemap-function org-publish-sitemap-default))
 
-(setq link-a "<link rel=\"stylesheet\" href=\""
-      link-c "\" type=\"text/css\"/>"
-      scr-a "<script src=\""
-      scr-c "\"></script>")
+(setq jquery-tag
+      (gen-script-tag "https://code.jquery.com/jquery-3.6.0.min.js"
+                      " crossorigin=\"anonymous\""))
 
 (setq public-extras
       (append main-extras
               (list :html-head
-                    (concat link-a "./css/org.css" link-c "\n" "<script"
-                            " src=\"https://code.jquery.com/jquery-3.6.0.min.js\""
-                            " crossorigin=\"anonymous\"\"></script>")
+                    (concat
+                     (gen-css-tag "./css/org.css") "\n"
+                     jquery-tag)
                     :html-head-extra
-                    (concat link-a "./css/style.css" link-c "\n"
-                            scr-a "./scripts/index.js" scr-c))))
+                    (concat (gen-css-tag "./css/style.css") "\n"
+                            (gen-script-tag "./scripts/index.js")))))
 
 (setq pages-extras
       (append main-extras
               (list :html-head
-                    (concat link-a "../css/org.css" link-c "\n" "<script"
-                            " src=\"https://code.jquery.com/jquery-3.6.0.min.js\""
-                            " crossorigin=\"anonymous\"\"></script>")
+                    (concat (gen-css-tag "../css/org.css") "\n"
+                            jquery-tag)
                     :html-head-extra
-                    (concat link-a "../css/style.css" link-c "\n"
-                            scr-a "../scripts/index.js" scr-c))))
+                    (concat (gen-css-tag "../css/style.css") "\n"
+                            (gen-script-tag "../scripts/index.js")))))
 
 (setq public-main (gen-cfg "public" public-dirs html-args public-extras))
 (setq public-images (gen-cfg "public" public-dirs img-args))
