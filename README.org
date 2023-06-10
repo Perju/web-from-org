@@ -139,3 +139,72 @@ exportar con la version correcta de Reveal.js.
         ,pages-main ,pages-images ,pages-revealjs
         ,(gen-cfg-website "pages" )))
 #+end_src
+** Archivo simple de configuración
+Script para ejecutar el build-site.el con el org-mode que viene con emacs y evitar que sucedan cosas raras con nuestra configuración personal.
+#+begin_src shell
+#!/bin/sh
+emacs -Q --script build-site.el
+#+end_src
+
+Script en emacs-lisp para publicar el sitio
+#+begin_src emacs-lisp
+;; Para acceder desde fuera con httpd-serve-directory
+;;(setq httpd-host "0.0.0.0")
+
+;; Donde instalar los paquetes
+(require 'package)
+(setq package-user-dir (expand-file-name "./.packages"))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+;; Inicializar el sistema de paquetes
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; instalar dependencias
+(package-install 'htmlize)
+
+;; Cargar el sistema de publicación
+(require 'ox-publish)
+
+;; Personaliza la salida HTML
+(setq org-html-validation-link nil
+      org-html-head-include-scripts nil
+      org-html-head-include-default-style nil
+      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
+<link rel=\"stylesheet\" href=\"https://perju.github.io/web-from-org/css/org-todo.css\" />")
+
+;; definir el proyecto a publicar
+(setq org-publish-project-alist
+      '(
+        ("mi-sitio-org"
+         :recursive t
+         :base-directory "./org"
+         :publishing-directory "~/docs"
+         :publishing-function org-html-publish-to-html
+         :with-author nil
+         :with-creator t
+         :with-toc t
+         :section-numbers nil
+         :time-stamp-file nil
+         :title "Mi sitio org"
+         :auto-preamble nil
+         :html-preamble "<div id=\"navbar\"> <ul>
+  <li><a href=\"/index.html\">Home</a></li>
+  <li><a href=\"/lista-de-tareas/01-Agenda.TODO.html\">Lista de tareas</a></li>
+</ul><hr></div>")
+
+        ("org-static"
+         :base-directory "./org"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/docs"
+         :recursive t
+         :publishing-function org-publish-attachment)))
+
+;; Publicar el sitio
+(org-publish-project "mi-sitio-org")
+(org-publish-project "org-static")
+
+(message "Build complete!")
+#+end_src
