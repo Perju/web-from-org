@@ -1,0 +1,170 @@
+:root {
+  --prim-0: #002B00;
+  --prim-1: #002100;
+  --prim-2: #023802;
+  --prim-3: #005C00;
+  --prim-4: #008700;
+
+  --second-1-0: #002020;
+  --second-1-1: #001919;
+  --second-1-2: #022A2A;
+  --second-1-3: #004545;
+  --second-1-4: #006565;
+
+  --second-2-0: #213200;
+  --second-2-1: #1A2700;
+  --second-2-2: #2C4102;
+  --second-2-3: #476B00;
+  --second-2-4: #699D00;
+
+  --comp-0: #360000;
+  --comp-1: #2A0000;
+  --comp-2: #460303;
+  --comp-3: #730000;
+  --comp-4: #A80000;
+  --bg-dark: #111;
+  --bg-light: #333;
+  --txt-dark: #ccc;
+  --txt-light: white;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: var(--bg-dark);
+  color: var(--txt-dark);
+}
+
+body > div {
+  margin: auto;
+}
+
+ul {
+  padding-inline-start: 16px;
+  margin: 0;
+}
+
+figure {
+  display: inline-block;
+}
+
+figure > img {
+  width: 180px;
+}
+
+a,
+a:visited {
+  color: var(--second-2-4);
+}
+
+.relleno {
+  color: var(--txt-white);
+}
+
+/* Tables general styles */
+table {
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  margin: 12px;
+  background: var(--prim-2);
+}
+table thead tr {
+  background: var(--second-1-2);
+  text-align: left;
+}
+table thead tr th:nth-of-type(even) {
+  background: var(--second-1-0);
+}
+table tbody tr {
+  border-top: 1px solid var(--prim-4);
+}
+table tr td:nth-of-type(even) {
+  background: var(--prim-0);
+}
+table tbody tr:last-of-type {
+  border-bottom: 4px solid var(--second-1-2);
+}
+table :is(td, th) {
+  padding: 12px 15px;
+}
+
+/* Content general styles */
+#content {
+  display: grid;
+  grid-template-columns: auto 800px auto;
+  grid-gap: 8px;
+  margin: auto;
+}
+
+#content > div {
+  grid-column: 2;
+}
+#content > div,
+#content > nav {
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+#content > header {
+  grid-column: 2;
+}
+
+#content > :is(#table-of-contents, #outline-container-sitemap){
+  width: 200px;
+  height: min-content;
+  grid-row: 2 / 9;
+}
+#content > #table-of-contents {
+  grid-column: 3;
+}
+#content > #outline-container-sitemap {
+  grid-column: 1;
+}
+:is(h1, h2){
+  margin: 0 0 16px 0;
+}
+
+header .title {
+  text-align: center;
+}
+
+.scroll-up-btn {
+  right: 10px;
+  bottom: 10px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: solid 4px var(--prim-0);
+  border-radius: 24px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.scroll-up-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-up-btn u {
+  display: block;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  top: 20px;
+  border: solid 6px var(--prim-4);
+  border-width: 8px 8px 0 0;
+  border-radius: 0 5px;
+  transform: rotateZ(-45deg);
+}
+
+div#navbar > ul {
+  display: flex;
+  flex-flow: row;
+  gap: 10px;
+  list-style-type: none;
+}
+
+
+div#content h1.title { grid-column: 2; }
