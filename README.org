@@ -5,16 +5,16 @@ los archivos con extensión *.org a html* y copiando este html, las imágenes y
 los archivos css a un directorio de publicación.
 
 Para esto ahora hay unas funciones a las que se les indica la carpeta base y la
-de publicación y exportan html css e imagenes. Y la ultima funcion se compone de
+de publicación y exportan html css e imágenes. Y la ultima función se compone de
 las tres anteriores para llamarlas de una sola vez.
 
 Si se utilizan enlaces relativos para la publicación como en la configuración,
-hay que publicar desde este documento o cuanquier otro que este en la misma
+hay que publicar desde este documento o cualquier otro que este en la misma
 carpeta.
 
 *** Como publicar el sitio web
 1. Evaluar las funciones para publicar con =C-c C-c= o =, ,=
-2. Modificar segun necesidades la configuración de publicación y evaluar
+2. Modificar según necesidades la configuración de publicación y evaluar
 3. Usar el publish dispatcher de org mode =M-m m e e P x=
 
 ** Funciones para publicar
@@ -58,7 +58,7 @@ carpeta.
 
 ** Configuración de publicación
 Hay que configurar las variables org-re-reveal-root y org-re-reveal-version para
-exportar con la version correcta de Reveal.js.
+exportar con la versión correcta de Reveal.js.
 #+begin_src emacs-lisp
 (setq public-dirs '("./org/" "./public_html"))
 (setq pages-dirs '("/home/username/org-files/" "./public_html/pages"))
@@ -206,3 +206,7 @@ Script en emacs-lisp para publicar el sitio
 
 (message "Build complete!")
 #+end_src
+
+** Utilidades
+En la carpeta util se encuentra un par de utilidades, una para convertir el
+sitio web a html y otra para publicar en un servidor FTP.
